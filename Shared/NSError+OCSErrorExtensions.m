@@ -8,17 +8,17 @@
     if ([self.domain isEqualToString:(NSString*)kCFErrorDomainCFNetwork] && self.code==kCFHostErrorUnknown) {
         NSNumber *failureNum=self.userInfo[(id)kCFGetAddrInfoFailureKey];
         if ([failureNum isKindOfClass:NSNumber.class]) {
-            int failure=[failureNum intValue];
+            int failure=failureNum.intValue;
             if (failure) {
                 const char *failureStr=gai_strerror(failure);
-                if (failureStr) return [NSString stringWithUTF8String:failureStr];
+                if (failureStr) return @(failureStr);
             }
         }
     }
     
-    if ([s=[self localizedFailureReason] length]) return s;
-    if ([s=[self localizedDescription] length]) return s;
-    if ([s=[self localizedRecoverySuggestion] length]) return s;
+    if ((s=self.localizedFailureReason).length) return s;
+    if ((s=self.localizedDescription).length) return s;
+    if ((s=self.localizedRecoverySuggestion).length) return s;
     return self.description;
 }
 

@@ -17,7 +17,7 @@
 @implementation OCSModel (TableViewDelegate)
 -(BOOL)selectionShouldChangeInTableView:(NSTableView *)tv {
     NSInteger cc=tv.clickedColumn;
-    return cc>=0 && cc<tv.tableColumns.count && ![[tv.tableColumns[cc] identifier] hasSuffix:@"_toggleYN"];
+    return cc>=0 && cc<tv.tableColumns.count && ![(tv.tableColumns[cc]).identifier hasSuffix:@"_toggleYN"];
 }
 -(BOOL)tableView:(NSTableView*)tv shouldTrackCell:(NSCell*)cell forTableColumn:(NSTableColumn*)column row:(NSInteger)row {
     if (![column.identifier hasSuffix:@"_toggleYN"]) return YES;

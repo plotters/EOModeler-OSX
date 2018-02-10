@@ -21,7 +21,7 @@
     if (objects.count<=1 || !self.model.smartSort) return objects;
     NSMutableDictionary *pp=[NSMutableDictionary dictionary];
     for (EOObject *item in objects) {
-        NSNumber *pn=[NSNumber numberWithInt:[self.class smartOrderingPriorityFor:item]];
+        NSNumber *pn=@([self.class smartOrderingPriorityFor:item]);
         [pp[pn]?:(pp[pn]=[NSMutableArray array]) addObject:item];
     }
     NSMutableArray *ma=nil;

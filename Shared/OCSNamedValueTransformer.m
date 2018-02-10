@@ -92,7 +92,7 @@ static NSValueTransformer*(*original)(id,SEL,NSString*);
 +(Class)transformedValueClass { return [NSNumber class]; }
 +(BOOL)allowsReverseTransformation { return NO; }
 -transformedValue:value {
-    return [NSNumber numberWithBool:[value boolValue]];
+    return @([value boolValue]);
 }
 +(void)load {
     @autoreleasepool {

@@ -116,8 +116,8 @@ static NSArray *orderedKeys(NSDictionary *dd) {
         text=[object description]?:@"--";
         leaf=YES;
     }
-    [cell setStringValue:text?:@"???"];
-    [cell setLeaf:leaf];
+    cell.stringValue = text?:@"???";
+    cell.leaf = leaf;
 }
 
 

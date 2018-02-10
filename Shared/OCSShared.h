@@ -9,13 +9,13 @@
 // Generic methods used throughout the complete project
 
 @interface NSError (OCSErrorExtensions)
--(NSString*)ocs_localizedErrorDescription; // tries to find best possible description from the error
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *ocs_localizedErrorDescription; // tries to find best possible description from the error
 // the rest are error-creation convenience, see defines below
 +(NSError*)ocs_errorWithDomain:(NSString*)domain code:(int)code extraItems:(NSDictionary*)extra format:(NSString*)fmt,... NS_FORMAT_FUNCTION(4,5);
 +(NSString*)ocs_errorDomainForFile:(const char*)fname;
 @end
 @interface NSException (OCSErrorExtensions)
--(NSString*)ocs_localizedErrorDescription; // tries to find best possible description from the exception, consistent with errors
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *ocs_localizedErrorDescription; // tries to find best possible description from the exception, consistent with errors
 @end
 #define OCSERROR(...) [NSError ocs_errorWithDomain:[NSError ocs_errorDomainForFile:__FILE__] code:__LINE__ extraItems:nil format:__VA_ARGS__]
 #define OCSERRORCODE(cc,...) [NSError ocs_errorWithDomain:[NSError ocs_errorDomainForFile:__FILE__] code:(cc) extraItems:nil format:__VA_ARGS__]
@@ -42,9 +42,9 @@
 @end
 
 @interface NSURL (OCSURLExtensions)
--(BOOL)ocs_fileExists; // any kind
--(BOOL)ocs_regularFileExists; // exists and is regular
--(BOOL)ocs_directoryExists; // exists and is directory
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL ocs_fileExists; // any kind
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL ocs_regularFileExists; // exists and is regular
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL ocs_directoryExists; // exists and is directory
 
 -(BOOL)ocs_ensurePathSansLastComponentExists:(NSError**)error; // YES: exists-or-successfully-created
 

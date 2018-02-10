@@ -15,13 +15,13 @@
 }
 
 -(BOOL)ocs_ensurePathSansLastComponentExists:(NSError**)error {
-    return [NSFileManager.defaultManager createDirectoryAtURL:[self URLByDeletingLastPathComponent] withIntermediateDirectories:YES attributes:nil error:error];
+    return [NSFileManager.defaultManager createDirectoryAtURL:self.URLByDeletingLastPathComponent withIntermediateDirectories:YES attributes:nil error:error];
 }
 
 +(NSURL*)ocs_temporaryFileAtPath:(NSURL*)path {
     if (!path) path=[NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES];
     if ([path ocs_directoryExists]) {
-        NSString *uuid=[[NSUUID UUID] UUIDString];
+        NSString *uuid=[NSUUID UUID].UUIDString;
         if (!uuid) // this happens on 10.7, for NSUUUID is a 10.8 API
             uuid=NSProcessInfo.processInfo.globallyUniqueString;
         path=[path URLByAppendingPathComponent:uuid];

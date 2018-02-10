@@ -13,14 +13,14 @@
 @implementation EOObject
 @dynamic userInfo;
 
--init {
+- (instancetype)init {
     if (!(self=[super init])) return nil;
     _rawContents=[NSMutableDictionary dictionary];
     return self;
 }
 
 +(NSString*)typeIdentifier {
-    NSString *ti=[clname(self) lowercaseString];
+    NSString *ti=clname(self).lowercaseString;
     if (![ti hasPrefix:@"eo"]) return ti;
     return [ti substringFromIndex:2];
 }
@@ -67,8 +67,8 @@
     while (name.length) {
         for (n=1;n<name.length && islower([name characterAtIndex:n]);n++);
         //NSLog(@"... camelpart of (%@) is %d",name,n);
-        prefix=[prefix stringByAppendingString:[[name substringToIndex:n] uppercaseString]];
-        if (![name=[name substringFromIndex:n] length]) break;
+        prefix=[prefix stringByAppendingString:[name substringToIndex:n].uppercaseString];
+        if (!(name=[name substringFromIndex:n]).length) break;
         if (n>1) prefix=[prefix stringByAppendingString:@"_"];
     }
     return prefix;
@@ -92,7 +92,7 @@
 
 // all the code below just makes sure appropriate rawContents-based getters and setters are installed for all dynamic properties
 inline static NSString *set2key(NSString *set) {
-    return [[[set substringWithRange:NSMakeRange(3, 1)] lowercaseString] stringByAppendingString:[set substringWithRange:NSMakeRange(4, set.length-5)]];
+    return [[set substringWithRange:NSMakeRange(3, 1)].lowercaseString stringByAppendingString:[set substringWithRange:NSMakeRange(4, set.length-5)]];
 }
 inline static NSArray *keya4key(EOObject *self,NSString *key) {
     NSDictionary *k4p=[self.class keyForProperty];
@@ -154,7 +154,7 @@ static inline NSString *setter(NSString *getter) {
         char *dyn=property_copyAttributeValue(prop[n],"D");
         if (dyn) {
             free(dyn);
-            NSString *key=[NSString stringWithUTF8String:property_getName(prop[n])];
+            NSString *key=@(property_getName(prop[n]));
 #if 0 // these bloody keys do not seem to be documented anywhere?!?
             unsigned an=0;
             objc_property_attribute_t *all=property_copyAttributeList(prop[n],&an);

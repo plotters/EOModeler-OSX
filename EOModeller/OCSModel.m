@@ -45,7 +45,7 @@
 }
 
 -(id)currentACController {
-    id fr=[self.entityTable.window firstResponder];
+    id fr=(self.entityTable.window).firstResponder;
     while (fr && ![fr isKindOfClass:NSTableView.class] && ![fr isKindOfClass:NSWindow.class]) fr=[fr superview];
     if ([fr isKindOfClass:[NSTableView class]]) {
         id controller=[fr infoForBinding:@"content"][@"NSObservedObject"];
@@ -103,9 +103,9 @@
 -(BOOL)validateMenuItem:(NSMenuItem *)mi {
     //NSLog(@"model %@ validates mi %@",self,NSStringFromSelector(mi.action));
     if (mi.action==@selector(toggleSmartSortMode:)) mi.state=self.smartSort?NSOnState:NSOffState;
-    else if (mi.action==@selector(addNewEntity:)) return [self.entityAC canAdd];
-    else if (mi.action==@selector(addNewAttribute:)) return [self.attributesAC canAdd];
-    else if (mi.action==@selector(addNewRelationship:)) return [self.relationshipAC canAdd];
+    else if (mi.action==@selector(addNewEntity:)) return (self.entityAC).canAdd;
+    else if (mi.action==@selector(addNewAttribute:)) return (self.attributesAC).canAdd;
+    else if (mi.action==@selector(addNewRelationship:)) return (self.relationshipAC).canAdd;
     return YES;
 }
 

@@ -15,7 +15,7 @@
         if (error) *error=OCSERROR(@"Only NSDictionaries can be serialized to OpneStep property lists, not %@",self.class);
         return nil;
     }
-    NSString *ds=[(NSDictionary*)self descriptionInStringsFileFormat];
+    NSString *ds=((NSDictionary*)self).descriptionInStringsFileFormat;
     if (!ds) {
         if (error) *error=OCSERROR(@"The data could not be serialized to OpenStep property format");
         return nil;
